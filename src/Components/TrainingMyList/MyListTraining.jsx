@@ -36,9 +36,15 @@ const MyListTraining = () => {
   };
 
   const handleShowTranslation = () => {
-    setShowTranslation((prev) =>
-      prev.map((_, index) => (index === currentWordIndex ? true : _))
+    setShowTranslation(
+      showTranslation.map((item, index) =>
+        index === currentWordIndex ? true : item
+      )
     );
+  };
+
+  const handleRestart = () => {
+    setCurrentWordIndex(0);
   };
 
   const handleReturnClick = () => {
@@ -48,6 +54,7 @@ const MyListTraining = () => {
   const buttonStyle = {
     background: "#8F00FF",
     color: "#ffffff",
+    marginTop: 30,
   };
 
   return (
@@ -55,7 +62,7 @@ const MyListTraining = () => {
       <h1>Тренировка из Моего списка</h1>
       {myList.length > 0 && (
         <div>
-          <Space direction="vertical">
+          <Space direction="vertical" style={{ marginTop: 30 }}>
             <Space>
               <Button icon={<LeftCircleOutlined />} onClick={handlePrev} />
 
@@ -70,8 +77,10 @@ const MyListTraining = () => {
                 >
                   <p>{myList[currentWordIndex].en}</p>
                   <p>{myList[currentWordIndex].tr}</p>
-                  {showTranslation && <p>{myList[currentWordIndex].ru}</p>}
-                  {!showTranslation && (
+                  {showTranslation[currentWordIndex] && (
+                    <p>{myList[currentWordIndex].ru}</p>
+                  )}
+                  {!showTranslation[currentWordIndex] && (
                     <Button onClick={handleShowTranslation}>
                       Показать перевод
                     </Button>
@@ -88,7 +97,14 @@ const MyListTraining = () => {
         </div>
       )}
       {myList.length === 0 && (
-        <p>Ваш список слов пуст. Добавьте слова в Мой список для тренировки.</p>
+        <div>
+          <p>
+            Ваш список слов пуст. Добавьте слова в Мой список для тренировки.
+          </p>
+          <Button style={buttonStyle} onClick={handleRestart}>
+            Начать заново
+          </Button>
+        </div>
       )}
     </div>
   );
