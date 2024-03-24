@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout, Menu } from "antd";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import {
   AppstoreOutlined,
   ContainerOutlined,
   DesktopOutlined,
-  MailOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
 
@@ -20,7 +19,12 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const items = [
   { key: "1", label: "Главная", icon: <PieChartOutlined />, path: "/main" },
-  { key: "2", label: "Список", icon: <ContainerOutlined />, path: "/list" },
+  {
+    key: "2",
+    label: "Список слов",
+    icon: <ContainerOutlined />,
+    path: "/list",
+  },
   {
     key: "3",
     label: "Тренировка",

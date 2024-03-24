@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import list from "./list.json";
 import { Table, Button, Input } from "antd";
-import {
-  EditOutlined,
-  PlusCircleOutlined,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 

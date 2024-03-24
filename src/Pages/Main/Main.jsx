@@ -13,7 +13,7 @@ const Main = () => {
   return (
     <div>
       <div style={{ marginTop: 30, marginBottom: 50, fontSize: 36 }}>
-        Welcome!
+        <h1>Welcome!</h1>
       </div>
       <Row gutter={[52, 16]} justify="center" align="middle">
         <Col onClick={() => handleCardClick("/list")}>

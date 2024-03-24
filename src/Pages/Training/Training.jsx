@@ -2,9 +2,6 @@ import React from "react";
 import { Button, Card, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import AllTraining from "../../Components/TrainingAll/AllTraining";
-import MyListTraining from "../../Components/TrainingMyList/MyListTraining";
-
 const Training = () => {
   const navigate = useNavigate();
 
@@ -20,8 +17,8 @@ const Training = () => {
     const trainingResults = JSON.parse(localStorage.getItem("trainingResults"));
     if (trainingResults) {
       return (
-        <div>
-          <p>Поздравляем, тренировка окончена!</p>
+        <div style={{ marginTop: 50, fontSize: 18 }}>
+          <h4>Поздравляем, тренировка окончена!</h4>
           <p>Вы уже знаете: {trainingResults.knowCount} слов!</p>
           <p>Вам не удалось запомнить: {trainingResults.dontKnowCount} слов!</p>
         </div>
