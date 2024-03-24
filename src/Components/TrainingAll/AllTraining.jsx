@@ -4,21 +4,35 @@ import { useNavigate } from "react-router-dom";
 import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import list from "../../list.json";
 
-const AllTraining = () => {
+const AllTraining = ({ addToMyList }) => {
   const navigate = useNavigate();
   const [currentWordIndex, setCurrentWordIndex] = useState(null);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [knowCount, setKnowCount] = useState(0);
+  const [dontKnowCount, setDontKnowCount] = useState(0);
   const whiteText = { color: "#ffffff" };
-  const greenBackground = { background: "#008000" };
-  const redBackground = { background: "#ff0000" };
+  const greenBackground = { background: "#388e3c" };
+  const redBackground = { background: "#ef5350" };
 
   useEffect(() => {
-    // Choose a random word index when the component mounts
     setCurrentWordIndex(Math.floor(Math.random() * list.length));
   }, []);
 
   const handleReturnClick = () => {
+    // Сохраняем результаты тренировки в localStorage
+    localStorage.setItem(
+      "trainingResults",
+      JSON.stringify({ knowCount, dontKnowCount })
+    );
     navigate("/training");
+  };
+
+  const handleKnowClick = () => {
+    setKnowCount((prev) => prev + 1);
+  };
+
+  const handleDontKnowClick = () => {
+    setDontKnowCount((prev) => prev + 1);
   };
 
   const handleNext = () => {
@@ -37,6 +51,11 @@ const AllTraining = () => {
 
   const handleShowTranslation = () => {
     setShowTranslation(true);
+  };
+
+  const handleAddToMyList = () => {
+    const word = list[currentWordIndex];
+    addToMyList(word);
   };
 
   const buttonStyle = {
@@ -77,11 +96,23 @@ const AllTraining = () => {
           </Space>
 
           <Space style={{ marginTop: 30 }}>
-            <Button style={{ ...whiteText, ...greenBackground }}>Знаю</Button>
-            <Button style={{ ...whiteText, ...redBackground }}>Не знаю</Button>
+            <Button
+              style={{ ...whiteText, ...greenBackground }}
+              onClick={handleKnowClick}
+            >
+              Знаю
+            </Button>
+            <Button
+              style={{ ...whiteText, ...redBackground }}
+              onClick={handleDontKnowClick}
+            >
+              Не знаю
+            </Button>
           </Space>
 
-          <Button style={buttonStyle}>Добавить в Мой список</Button>
+          <Button style={buttonStyle} onClick={handleAddToMyList}>
+            Добавить в Мой список
+          </Button>
         </Space>
       </div>
       <Button style={buttonStyle} onClick={handleReturnClick}>

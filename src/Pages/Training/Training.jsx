@@ -16,6 +16,19 @@ const Training = () => {
     navigate("/mylisttraining");
   };
 
+  const showTrainingResults = () => {
+    const trainingResults = JSON.parse(localStorage.getItem("trainingResults"));
+    if (trainingResults) {
+      return (
+        <div>
+          <p>Поздравляем, тренировка окончена!</p>
+          <p>Вы уже знаете: {trainingResults.knowCount} слов!</p>
+          <p>Вам не удалось запомнить: {trainingResults.dontKnowCount} слов!</p>
+        </div>
+      );
+    }
+  };
+
   const buttonStyle = {
     background: "#8F00FF",
     color: "#ffffff",
@@ -46,6 +59,7 @@ const Training = () => {
           </Button>
         </Card>
       </Space>
+      {showTrainingResults()}
     </div>
   );
 };

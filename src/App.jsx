@@ -36,12 +36,18 @@ const items = [
 ];
 
 const App = () => {
-  const [myList, setMyList] = useState([]);
-
   const addToMyList = (word) => {
-    setMyList([...myList, word]);
-    // Сохраняем обновленный список в localstorage
-    localStorage.setItem("myList", JSON.stringify([...myList, word]));
+    const storedList = JSON.parse(localStorage.getItem("myList")) || [];
+
+    if (storedList.some((item) => item.en === word.en)) {
+      alert("Слово уже есть в Моем списке!");
+    } else {
+      // Добавить слово в список
+      const updatedList = [...storedList, word];
+      localStorage.setItem("myList", JSON.stringify(updatedList));
+      // Подтвердить добавление слова в список
+      alert("Слово успешно добавлено в список!");
+    }
   };
 
   return (
@@ -101,7 +107,10 @@ const App = () => {
               />
               <Route path="/training" element={<Training />} />
               <Route path="/mylist" element={<MyList />} />
-              <Route path="/alltraining" element={<AllTraining />} />
+              <Route
+                path="/alltraining"
+                element={<AllTraining addToMyList={addToMyList} />}
+              />
               <Route path="/mylisttraining" element={<MyListTraining />} />
             </Routes>
           </Content>
